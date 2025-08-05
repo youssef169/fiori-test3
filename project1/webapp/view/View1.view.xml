@@ -1,7 +1,36 @@
+
 <mvc:View controllerName="sap.aymax.dev.project1.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
+
+<VBox id="_IDGenVBox" class="sapUiSmallMargin">
+    <HBox id="_IDGenHBox">
+        <!-- 🔹 PO Number Dropdown -->
+        <Label id="_IDGenLabel" text="PO Number(s)" labelFor="poSelect"/>
+        <MultiComboBox id="poSelect"
+                       width="200px"
+                       items="{/zye_CDS2}"
+                       selectedKeys="{filterModel>/selectedPONumbers}">
+            <core:ListItem id="_IDGenListItem" key="{ebeln}" text="{ebeln}" />
+        </MultiComboBox>
+
+        <!-- 🔹 Vendor Dropdown -->
+        <Label id="_IDGenLabel1" text="Vendor(s)" labelFor="vendorSelect" class="sapUiTinyMarginBegin"/>
+        <MultiComboBox id="vendorSelect"
+                       width="200px"
+                       items="{vendorVH>/ZYE_VENDOR_VH}"
+                       selectedKeys="{filterModel>/selectedVendors}">
+            <core:ListItem id="_IDGenListItem1" key="{vendorVH>lifnr}" text="{vendorVH>lifnr}" />
+        </MultiComboBox>
+
+        <Button id="b1" text="Search" press=".onSearch" class="sapUiTinyMarginBegin"/>
+    </HBox>
+</VBox>
+
+
+
              <Table id="table1"  items="{ path: '/zye_CDS2' }" >
     
         <columns>
@@ -20,7 +49,14 @@
         </columns>
 
         <items>
-<ColumnListItem id="item1">
+<ColumnListItem id="item1" type="Active" press="onRowPress" 
+  highlight="{
+    = icount === 1 
+      ? 'Success' 
+      : icount === 2 
+        ? 'Warning' 
+        : 'Error'
+  }">
   <cells>
     <Text id="ponum" text="{ebeln}" />
     <Text id="CCode" text="{CC}" />
@@ -34,6 +70,7 @@
     <Text id="Dec" text="{tempData>Meins}" />
     <Text id="DD" text="{tempData>Eindt}" />
   -->
+
   </cells>
 </ColumnListItem>
     </items>

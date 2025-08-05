@@ -1,0 +1,45 @@
+<mvc:View
+  controllerName="sap.aymax.dev.project1.controller.View2"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+
+  <Page id="_IDGenPage" title="PO Items" showNavButton="true" navButtonPress=".onNavBack">
+
+    <!-- 🔹 Header Info -->
+    <ObjectHeader id="_IDGenObjectHeader1"
+        title="PO Line Items"
+        numberUnit="Details"
+        intro="Items for selected Purchase Order"
+        backgroundDesign="Translucent"
+        icon="sap-icon://document-text" />
+
+    <!-- 🔹 PO Items Table -->
+    <Table id="itemTable"
+           headerText="Line Items"
+           class="sapUiResponsiveMargin sapUiContentPadding"
+           items="{zye_CDS2_items}">
+      
+      <columns>
+        <Column id="_IDGenColumn"><Text id="_IDGenText" text="Item" /></Column>
+        <Column id="_IDGenColumn1"><Text id="_IDGenText1" text="Material" /></Column>
+        <Column id="_IDGenColumn2"><Text id="_IDGenText2" text="Description" /></Column>
+        <Column id="_IDGenColumn3"><Text id="_IDGenText3" text="Quantity" /></Column>
+        <Column id="_IDGenColumn4"><Text id="_IDGenText4" text="UoM" /></Column>
+        <Column id="_IDGenColumn5"><Text id="_IDGenText5" text="Delivery Date" /></Column>
+      </columns>
+
+      <items>
+        <ColumnListItem id="_IDGenColumnListItem">
+          <cells>
+            <ObjectIdentifier id="_IDGenObjectIdentifier" title="{ebelp}" />
+            <Text id="_IDGenText6" text="{matnr}" />
+            <Text id="_IDGenText7" text="{maktx}" />
+            <ObjectNumber id="_IDGenObjectNumber" number="{menge}" unit="{meins}" />
+            <Text id="_IDGenText8" text="{meins}" />
+            <Text id="_IDGenText9" text="{path: 'mindate', formatter: '.formatDate'}" />
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+  </Page>
+</mvc:View>
