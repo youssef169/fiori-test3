@@ -1,0 +1,43 @@
+<mvc:View controllerName="sap.aymax.dev.project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+             <Table id="table1"  items="{ path: '/zye_CDS2' }" >
+    
+        <columns>
+             <Column id="col1"> <Text id="txt1" text="PO number"/> </Column>
+             <Column id="col2"> <Text id="txt2" text="company code"/> </Column>
+             <Column id="col3"> <Text id="txt3" text="vendor"/> </Column>
+             <Column id="col4"> <Text id="txt4" text="PO type"/> </Column>
+             <!--
+             <Column id="col5"> <Text id="txt5" text="Item number"/> </Column>
+             <Column id="col6"> <Text id="txt6" text="quantity"/> </Column>
+             <Column id="col7"> <Text id="txt7" text="material number"/> </Column>
+             <Column id="col8"> <Text id="txt8" text="unit of measure"/> </Column>
+             <Column id="col9"> <Text id="txt9" text="descrition"/> </Column>
+             <Column id="col10"> <Text id="txt10" text="delivery date"/> </Column>
+        -->
+        </columns>
+
+        <items>
+<ColumnListItem id="item1">
+  <cells>
+    <Text id="ponum" text="{ebeln}" />
+    <Text id="CCode" text="{CC}" />
+    <Text id="ven" text="{lifnr}" />
+    <Text id="potype" text="{bsart}" />
+    <!--
+    <Text id="Ino" text="{tempData>Ebelp}" />
+    <Text id="Qua" text="{tempData>Menge}" />
+    <Text id="Mnum" text="{tempData>Matnr}" />
+    <Text id="measureunit" text="{tempData>Maktx}" />
+    <Text id="Dec" text="{tempData>Meins}" />
+    <Text id="DD" text="{tempData>Eindt}" />
+  -->
+  </cells>
+</ColumnListItem>
+    </items>
+
+    </Table>
+    </Page>
+</mvc:View>

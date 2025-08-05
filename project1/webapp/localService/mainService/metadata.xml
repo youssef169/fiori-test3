@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://192.168.10.66:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://192.168.10.66:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://192.168.10.66:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://192.168.10.66:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://192.168.10.66:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZYE_CDS2_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="zye_CDS2Type" sap:label="CDS for PO data 2" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ebeln"/>
+                </Key>
+                <Property Name="ebeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchasing Document" sap:quickinfo="Purchasing Document Number" sap:value-list="standard"/>
+                <Property Name="CC" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
+                <Property Name="lifnr" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="CC" sap:label="Vendor" sap:quickinfo="Vendor's account number"/>
+                <Property Name="bsart" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type"/>
+                <Property Name="no_items" Type="Edm.Byte"/>
+                <NavigationProperty Name="to_Items" Relationship="ZYE_CDS2_CDS.assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9" FromRole="FromRole_assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9" ToRole="ToRole_assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9"/>
+            </EntityType>
+            <EntityType Name="zye_CDS2_itemsType" sap:label="CDS for PO items 2" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ebelp"/>
+                    <PropertyRef Name="ebeln"/>
+                </Key>
+                <Property Name="ebelp" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="NonNegative" sap:label="Item" sap:quickinfo="Item Number of Purchasing Document"/>
+                <Property Name="ebeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchasing Document" sap:quickinfo="Purchasing Document Number"/>
+                <Property Name="matnr" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="maktx" Type="Edm.String" MaxLength="40" sap:label="Material description"/>
+                <Property Name="menge" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="meins" sap:label="Order Quantity" sap:quickinfo="Purchase Order Quantity"/>
+                <Property Name="meins" Type="Edm.String" MaxLength="3" sap:label="Order Unit" sap:quickinfo="Purchase Order Unit of Measure" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="zye_PO_vhType" sap:label="value help for PO" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PO"/>
+                </Key>
+                <Property Name="PO" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchasing Document" sap:quickinfo="Purchasing Document Number"/>
+                <Property Name="Item" Type="Edm.String" MaxLength="5" sap:display-format="NonNegative" sap:label="Item" sap:quickinfo="Item Number of Purchasing Document"/>
+                <Property Name="DES" Type="Edm.String" MaxLength="40" sap:label="Material description"/>
+            </EntityType>
+            <Association Name="assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9" sap:content-version="1">
+                <End Type="ZYE_CDS2_CDS.zye_CDS2Type" Multiplicity="1" Role="FromRole_assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9"/>
+                <End Type="ZYE_CDS2_CDS.zye_CDS2_itemsType" Multiplicity="*" Role="ToRole_assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9"/>
+            </Association>
+            <EntityContainer Name="ZYE_CDS2_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="zye_CDS2" EntityType="ZYE_CDS2_CDS.zye_CDS2Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="zye_CDS2_items" EntityType="ZYE_CDS2_CDS.zye_CDS2_itemsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zye_PO_vh" EntityType="ZYE_CDS2_CDS.zye_PO_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9" Association="ZYE_CDS2_CDS.assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zye_CDS2" Role="FromRole_assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9"/>
+                    <End EntitySet="zye_CDS2_items" Role="ToRole_assoc_AC1B90DF20D7B4B2B1D3CF50696ABDF9"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZYE_CDS2_CDS.zye_CDS2Type/ebeln" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="value help for PO"/>
+                        <PropertyValue Property="CollectionPath" String="zye_PO_vh"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ebeln"/>
+                                    <PropertyValue Property="ValueListProperty" String="PO"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Item"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="DES"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZYE_CDS2_CDS.ZYE_CDS2_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://192.168.10.66:8000/sap/opu/odata/sap/ZYE_CDS2_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://192.168.10.66:8000/sap/opu/odata/sap/ZYE_CDS2_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
